@@ -2,6 +2,7 @@
 const path = require("path");
 
 const CopyPlugin = require("copy-webpack-plugin");
+const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 
 function abs(...args) {
@@ -57,6 +58,14 @@ module.exports = [
       new CopyPlugin({
         patterns: [{ from: PUBLIC_ROOT, to: DIST_PUBLIC }],
       }),
+      new ImageminWebpWebpackPlugin({
+        config: [{
+          options: {
+            quality:  75 
+          },
+          test: /\.(png|jpe?g)$/i
+        }]
+      })
     ],
     resolve: {
       extensions: [".js", ".jsx"],
